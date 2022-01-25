@@ -11,7 +11,7 @@ Vue.use(Buefy)
 Vue.prototype.$api = axios.create({
   baseURL : 'https://allweb.fun/coop/api/',
   params: {},
-  headers: {'Authorization': "5fcad6c9051fce9e90c175ce5f8624c33ff1a4c8"}
+  headers: {'Authorization': ""}
 });
 
 Vue.prototype.$api.interceptors.request.use(function (config){
