@@ -39,10 +39,10 @@ export default {
   name: "CreationCompte",
   data() {
     return {
-      fullname: 'Lucas Humbert',
-      email: 'lucs@test.com',
-      password: 'mdp123',
-      passwordVerif: 'mdp123',
+      fullname: '',
+      email: '',
+      password: '',
+      passwordVerif: '',
       state: '',
         errorIsActive: false,
         errorDuration: 3500

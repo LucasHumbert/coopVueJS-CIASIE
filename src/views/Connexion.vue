@@ -34,8 +34,8 @@ export default {
   },
   data() {
     return {
-      email: "lucs@test.com",
-      password: "mdp123",
+      email: "",
+      password: "",
       state: "",
       errorIsActive: false,
       errorDuration: 3500
