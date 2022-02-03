@@ -41,12 +41,31 @@
 <script>
 export default {
   mounted() {
-    this.$api.get('ping').then()
+    this.$store.commit('setReady', false)
+
     if (!this.$store.state.connexionToken) {
-      this.$router.push('/connexion')
+      this.seConnecter()
+    } else {
+      this.$api.get(`members/${this.$store.state.member.id}/signedin`)
+      .then(this.demarrer)
+      .catch(this.seConnecter)
     }
   },
   methods: {
+    ready(){
+      this.$store.commit('setReady', true);
+    },
+    demarrer(){
+      this.$api.get('members').then(response => {
+        this.$store.commit('setMembers', response.data)
+      })
+      this.ready();
+    },
+    seConnecter(){
+      this.$store.commit('setToken', false)
+      this.$router.push('/connexion')
+      this.ready();
+    },
     deconnexion(){
       this.$api.delete('members/signout')
         .then(response => {

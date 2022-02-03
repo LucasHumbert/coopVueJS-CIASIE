@@ -9,7 +9,8 @@
       Photo de profil
     </div>
     <div>
-      {{ this.membre.email }}
+      <p>Compte créé le {{ this.created_at }}</p>
+      <p>{{ this.membre.email }}</p>
     </div>
   </div>
 </div>
@@ -24,9 +25,17 @@ export default {
     }
   },
   mounted() {
-    this.$api.get('members').then(response => {
-      this.membre = response.data.find(el => el.id === this.$route.params.id)
-    })
+    this.membre = this.$store.getters.getMembre(this.$route.params.id)
+  },
+  computed: {
+    created_at(){
+      if (this.membre){
+        let d = new Date(this.membre.created_at)
+        return (
+            d.toLocaleDateString("fr-FR") + " à " + d.toLocaleTimeString("fr-FR")
+        )
+      }
+    }
   }
 }
 </script>

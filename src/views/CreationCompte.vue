@@ -12,8 +12,13 @@
         </b-input>
       </b-field>
 
-      <b-field label="Password">
+      <b-field label="Mot de passe">
         <b-input type="password" v-model="password" required>
+        </b-input>
+      </b-field>
+
+      <b-field label="Vérification du mot de passe" class="mt-5">
+        <b-input type="password" v-model="passwordVerif" required>
         </b-input>
       </b-field>
 
@@ -37,6 +42,7 @@ export default {
       fullname: 'Lucas Humbert',
       email: 'lucs@test.com',
       password: 'mdp123',
+      passwordVerif: 'mdp123',
       state: '',
         errorIsActive: false,
         errorDuration: 3500
@@ -44,18 +50,23 @@ export default {
   },
   methods: {
     validation() {
-      let donnees = {
-        fullname: this.fullname,
-        email: this.email,
-        password: this.password,
-      }
-      this.$api.post('members', donnees)
-          .then(response => {
-            this.$router.push('/connexion')
-          }).catch(error => {
-        this.state = error.response.data.message
+      if (this.password !== this.passwordVerif){
+        this.state = "Les mots de passe ne correspondent pas !"
         this.errorIsActive = true
-      })
+      } else {
+        let donnees = {
+          fullname: this.fullname,
+          email: this.email,
+          password: this.password,
+        }
+        this.$api.post('members', donnees)
+            .then(response => {
+              this.$router.push('/connexion')
+            }).catch(error => {
+          this.state = error.response.data.message
+          this.errorIsActive = true
+        })
+      }
     }
   }
 }

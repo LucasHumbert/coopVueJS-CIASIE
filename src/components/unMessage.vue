@@ -34,7 +34,7 @@
 <script>
 export default {
   name: "unMessage",
-  props: ["message", "id_channel", "les_messages"],
+  props: ["message", "id_channel"],
   data() {
     return {
       editing: false
@@ -44,9 +44,7 @@ export default {
     deleteMessage(id){
       this.$api.delete(`channels/${this.id_channel}/posts/${id}`).then(response => {
         this.$buefy.toast.open(response.data.message)
-        this.$api.get(`channels/${this.id_channel}/posts`).then(response => {
-          this.$emit('reload', response.data)
-        })
+          this.$emit('deleteMessage', id)
       })
     },
     modifMessage(id, messageModif) {
@@ -59,9 +57,6 @@ export default {
         this.$api.put(`channels/${this.id_channel}/posts/${id}`, donnees).then(response => {
           this.$buefy.toast.open("Message modifié")
           this.editing = false
-          this.$api.get(`channels/${this.id_channel}/posts`).then(response => {
-            this.$emit('reload', response.data)
-          })
         })
       }
     }

@@ -3,29 +3,33 @@
   <div class="box column is-10 is-offset-1 has-text-centered">
     <div class="has-text-right">
       <button id="editButton" @click="editingConv = !editingConv">
-        <i class="far fa-edit"></i>
+        <i v-if="!editingConv" class="far fa-edit"></i>
+        <i v-else class="fas fa-arrow-left"></i>
       </button>
     </div>
     <div v-if="!editingConv">
       <h1 class="title">{{ this.conv.label }}</h1>
       <h2 class="subtitle mb-2">{{ this.conv.topic }}</h2>
-      <p class="is-size-7">Créé le: {{ this.conv.created_at }} | Modifié le: {{ this.conv.modified_at }}</p>
+      <p class="mb-2">{{this.messages.length}} messages</p>
+      <p class="is-size-7">Créé le: {{ this.conv.created_at }} <span v-if="this.conv.created_at !== this.conv.modified_at">| Modifié le: {{ this.conv.modified_at }}</span></p>
     </div>
-    <form @submit.prevent="editingConv" v-else class="columns is-multiline">
+    <form v-else @submit.prevent="editConv(conv.id, conv.label, conv.topic)" class="columns is-multiline">
       <b-field horizontal label="Label" class="column is-4 is-offset-4 mb-1 p-1">
-        <b-input type="text" v-model="this.conv.label" autofocus>
+        <b-input type="text" v-model="conv.label" autofocus>
         </b-input>
       </b-field>
 
       <b-field horizontal label="Topic" class="column is-4 is-offset-4 mb-1 p-1">
-        <b-input type="text" v-model="this.conv.topic" autofocus>
+        <b-input type="text" v-model="conv.topic" autofocus>
         </b-input>
       </b-field>
+
+      <button class="button"><i class="fas fa-check"></i></button>
     </form>
   </div>
   <div id="chatbox" class="box px-5 column is-10 is-offset-1 is-flex is-flex-grow-2 is-flex-direction-column-reverse">
     <div v-for="message in messages" class="columns mb-2">
-      <un-message :message="message" :id_channel="id_channel" :les_messages="messages" @reload="reload"></un-message>
+      <un-message :message="message" :id_channel="id_channel" @deleteMessage="deleteMessage"></un-message>
     </div>
   </div>
   <div class="box column is-10 is-offset-1">
@@ -83,12 +87,7 @@ export default {
           message: this.nvMessage
         }
         this.$api.post(`channels/${this.id_channel}/posts`, donnees).then(response => {
-          this.$api.get(`channels/${this.id_channel}/posts`).then(response => {
-            this.messages = response.data;
-            this.messages.forEach(message => {
-              message['auteur'] = this.recupAuteur(message.member_id)
-            })
-          })
+          this.messages.unshift(response.data)
           this.nvMessage = "";
         })
       }
@@ -102,11 +101,24 @@ export default {
       })
       return returnValue;
     },
-    reload(value){
-      this.messages = value
+    deleteMessage(idMessage){
+      this.messages = this.messages.filter(el => el !== idMessage)
     },
-    editConv(id){
-      this.editingConv = true
+    editConv(id, label, topic){
+      if (!label) {
+        this.$buefy.toast.open("Renseigner un label !")
+      } else if (!topic) {
+        this.$buefy.toast.open("Renseigner un topic !")
+      } else {
+        let donnees = {
+          label: label,
+          topic: topic
+        }
+        this.$api.put(`channels/${this.id_channel}`, donnees).then(response => {
+          this.$buefy.toast.open("Conversation modifié")
+          this.editingConv = false
+        })
+      }
     }
   }
 }
