@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="20d29fc1-cd26-4e47-8c2c-cc041f39b179" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/affichageConversations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/affichageConversations.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/unMessage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/unMessage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/CreationCompte.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/CreationCompte.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/FicheMembre.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/FicheMembre.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/UneConversation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/UneConversation.vue" afterDir="false" />
-    </list>
+    <list default="true" id="20d29fc1-cd26-4e47-8c2c-cc041f39b179" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,7 +25,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="/var/www/html/dev-app-backend/TD1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -51,6 +41,7 @@
       <workItem from="1643640062430" duration="5000" />
       <workItem from="1643708221104" duration="4510000" />
       <workItem from="1643724311425" duration="23000" />
+      <workItem from="1643895396965" duration="403000" />
     </task>
     <servers />
   </component>
