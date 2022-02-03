@@ -87,10 +87,7 @@ export default {
           message: this.nvMessage
         }
         this.$api.post(`channels/${this.id_channel}/posts`, donnees).then(response => {
-          //this.messages.unshift(response.data)
-          this.$api.get(`channels/${this.id_channel}/posts`).then(response => {
-            this.messages = response.data
-          })
+          this.messages.unshift(response.data)
           this.nvMessage = "";
         })
       }

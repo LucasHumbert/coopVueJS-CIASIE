@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="20d29fc1-cd26-4e47-8c2c-cc041f39b179" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/views/UneConversation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/UneConversation.vue" afterDir="false" />
-    </list>
+    <list default="true" id="20d29fc1-cd26-4e47-8c2c-cc041f39b179" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,7 +41,7 @@
       <workItem from="1643640062430" duration="5000" />
       <workItem from="1643708221104" duration="4510000" />
       <workItem from="1643724311425" duration="23000" />
-      <workItem from="1643895396965" duration="2031000" />
+      <workItem from="1643895396965" duration="2407000" />
     </task>
     <servers />
   </component>
