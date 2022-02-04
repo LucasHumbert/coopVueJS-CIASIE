@@ -9,42 +9,46 @@
   </div>
 
   <!-- Message envoyé par l'utilisateur connecté -->
-  <div v-else class="box mt-5 column is-5 is-offset-7 has-background-info has-text-right has-text-white">
-    <div class="is-flex is-justify-content-space-between">
-      <p v-if="!editing" class="messageText has-text-left my-3 px-2">{{ message.message }}</p>
-      <form v-else @submit.prevent="modifMessage(message.id ,message.message)" class="is-flex is-justify-content-center mb-2">
-        <b-input type="text" v-model="message.message" autofocus></b-input>
-        <button class="button"><i class="fas fa-check"></i></button>
-      </form>
-      <div>
-        <div v-if="!editing" class="is-flex is-align-items-start">
-          <button @click="editing = true" class="editButtons mr-1"><i class="far fa-edit"></i></button>
-          <button v-if="!editing" @click="deleteMessage(message.id)" class="delete is-small"></button>
-        </div>
-        <div v-else class="is-flex is-align-items-start">
-          <button @click="editing = false" class="editButtons"><i class="fas fa-arrow-left"></i></button>
+  <transition v-else-if="display" name="fade">
+    <div class="box mt-5 column is-5 is-offset-7 has-background-info has-text-right has-text-white">
+      <div class="is-flex is-justify-content-space-between">
+        <p v-if="!editing" class="messageText has-text-left my-3 px-2">{{ message.message }}</p>
+        <form v-else @submit.prevent="modifMessage(message.id ,message.message)" class="is-flex is-justify-content-center mb-2">
+          <b-input type="text" v-model="message.message" autofocus></b-input>
+          <button class="button"><i class="fas fa-check"></i></button>
+        </form>
+        <div>
+          <div v-if="!editing" class="is-flex is-align-items-start">
+            <button @click="editing = true" class="editButtons mr-1"><i class="far fa-edit"></i></button>
+            <button v-if="!editing" @click="deleteMessage(message.id)" class="delete is-small"></button>
+          </div>
+          <div v-else class="is-flex is-align-items-start">
+            <button @click="editing = false" class="editButtons"><i class="fas fa-arrow-left"></i></button>
+          </div>
         </div>
       </div>
+      <p v-if="message.created_at === message.modified_at" class="is-size-7 has-text-right">Écrit le {{ message.created_at }}</p>
+      <p v-else class="is-size-7 has-text-right">Modifié le {{ message.modified_at }}</p>
     </div>
-    <p v-if="message.created_at === message.modified_at" class="is-size-7 has-text-right">Écrit le {{ message.created_at }}</p>
-    <p v-else class="is-size-7 has-text-right">Modifié le {{ message.modified_at }}</p>
-  </div>
+  </transition>
 </template>
 
 <script>
+import md5 from 'crypto-js/md5'
 export default {
   name: "unMessage",
   props: ["message", "id_channel"],
   data() {
     return {
-      editing: false
+      editing: false,
+      display: true
     }
   },
   methods: {
     deleteMessage(id){
       this.$api.delete(`channels/${this.id_channel}/posts/${id}`).then(response => {
         this.$buefy.toast.open(response.data.message)
-          this.$emit('deleteMessage', id)
+        this.display = false
       })
     },
     modifMessage(id, messageModif) {

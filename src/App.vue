@@ -86,4 +86,15 @@ body{
   height: 100vh;
   max-height: 100vh;
 }
+#profilPicture{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>

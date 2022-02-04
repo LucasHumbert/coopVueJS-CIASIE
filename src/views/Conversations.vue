@@ -7,9 +7,9 @@
         Créer une conversation
       </router-link>
     </div>
-    <div v-for="conv in convs">
-      <affichage-conversations :conv="conv" :funcDelete="deleteConv"></affichage-conversations>
-    </div>
+    <template v-for="conv in convs">
+      <affichage-conversations :conv="conv"></affichage-conversations>
+    </template>
   </div>
 </div>
 </template>
@@ -33,19 +33,7 @@ export default {
     })
   },
   methods:{
-    deleteConv(id, label){
-      this.$buefy.dialog.confirm({
-        message: `Supprimer la conversation ${label} ?`,
-        onConfirm: () => {
-          this.$api.delete('channels/' + id).then(response => {
-            this.$buefy.toast.open('Conversation supprimée')
-            this.$api.get('channels').then(response => {
-              this.convs = response.data
-            })
-          })
-        }
-      })
-    }
+
   }
 }
 </script>

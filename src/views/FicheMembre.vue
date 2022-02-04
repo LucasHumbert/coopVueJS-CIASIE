@@ -6,17 +6,18 @@
       <p v-else>Profil de {{ this.membre.fullname }}</p>
     </div>
     <div>
-      Photo de profil
+      <img :src="mailtoMD5" class="mb-4" id="profilPicture" alt="Photo de profil">
     </div>
     <div>
-      <p>Compte créé le {{ this.created_at }}</p>
       <p>{{ this.membre.email }}</p>
+      <p>Compte créé le {{ this.created_at }}</p>
     </div>
   </div>
 </div>
 </template>
 
 <script>
+import md5 from 'crypto-js/md5'
 export default {
   name: "FicheMembre",
   data() {
@@ -35,6 +36,10 @@ export default {
             d.toLocaleDateString("fr-FR") + " à " + d.toLocaleTimeString("fr-FR")
         )
       }
+    },
+    mailtoMD5() {
+      let mail = md5(this.membre.email).toString()
+      return 'https://www.gravatar.com/avatar/' + mail + '?d=identicon'
     }
   }
 }

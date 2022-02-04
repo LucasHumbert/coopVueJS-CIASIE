@@ -29,16 +29,14 @@
   </div>
   <div id="chatbox" class="box px-5 column is-10 is-offset-1 is-flex is-flex-grow-2 is-flex-direction-column-reverse">
     <div v-for="message in messages" class="columns mb-2">
-      <un-message :message="message" :id_channel="id_channel" @deleteMessage="deleteMessage"></un-message>
+      <un-message :message="message" :id_channel="id_channel"></un-message>
     </div>
   </div>
   <div class="box column is-10 is-offset-1">
-    <form @submit.prevent="envoyerMessage">
-      <b-field>
-        <b-input type="text" style="width: 100%;" v-model="nvMessage" autofocus grouped>
-        </b-input>
-        <b-button class="button"><i class="far fa-paper-plane"></i></b-button>
-      </b-field>
+    <form @submit.prevent="envoyerMessage" class="is-flex">
+      <b-input type="text" style="width: 100%;" v-model="nvMessage" autofocus grouped>
+      </b-input>
+      <button class="button"><i class="far fa-paper-plane"></i></button>
     </form>
   </div>
 </div>
@@ -75,6 +73,7 @@ export default {
         message['auteur'] = this.recupAuteur(message.member_id)
       })
     })
+
   },
   methods:{
     envoyerMessage(){
@@ -100,9 +99,6 @@ export default {
         }
       })
       return returnValue;
-    },
-    deleteMessage(idMessage){
-      this.messages = this.messages.filter(el => el !== idMessage)
     },
     editConv(id, label, topic){
       if (!label) {

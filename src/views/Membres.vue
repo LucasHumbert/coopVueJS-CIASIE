@@ -2,9 +2,9 @@
 <div class="columns">
   <div class="column is-10 is-offset-1 py-5">
     <h1 class="title is-3 has-text-centered">Liste des membres</h1>
-    <div v-for="membre in membres">
+    <template v-for="membre in membres">
       <affichage-membres :membre="membre" :func-delete="deleteUser"></affichage-membres>
-    </div>
+    </template>
   </div>
 </div>
 </template>

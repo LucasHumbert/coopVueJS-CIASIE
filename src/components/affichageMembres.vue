@@ -10,9 +10,17 @@
 </template>
 
 <script>
+import md5 from "crypto-js/md5";
+
 export default {
   name: "affichageMembres",
-  props: ["membre", "funcDelete"]
+  props: ["membre", "funcDelete"],
+  computed: {
+    mailtoMD5() {
+      let mail = md5(this.membre.email).toString()
+      return 'https://www.gravatar.com/avatar/' + mail + '?d=identicon'
+    }
+  }
 }
 </script>
 
