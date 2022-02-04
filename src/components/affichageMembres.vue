@@ -1,7 +1,8 @@
 <template>
   <div class="box columns is-vcentered p-0 my-6">
-    <router-link :to="{name: 'FicheMembre', params: { id: membre.id }}" class="column ml-4">
-      <p class="mb-2 is-size-5">{{ membre.fullname }} <span class="is-size-6 ml-3">{{ membre.email }}</span></p>
+    <router-link :to="{name: 'FicheMembre', params: { id: membre.id }}" class="column ml-4 is-flex is-align-items-center">
+      <img :src="mailtoMD5" class="mr-4" id="profilPicture" alt="Photo de profil">
+      <p class="is-size-5">{{ membre.fullname }} <span class="is-size-6 ml-3">{{ membre.email }}</span></p>
     </router-link>
     <div class="column is-1 has-text-centered" v-if="membre.id !== $store.state.member.id">
       <button @click="funcDelete(membre.id, membre.fullname)" class="delete is-medium"></button>
@@ -25,5 +26,9 @@ export default {
 </script>
 
 <style scoped>
-
+#profilPicture{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
 </style>

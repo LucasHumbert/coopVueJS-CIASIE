@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import md5 from 'crypto-js/md5'
 export default {
   name: "unMessage",
   props: ["message", "id_channel"],
