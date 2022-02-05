@@ -28,7 +28,7 @@
     </form>
   </div>
   <div id="chatbox" class="box px-5 column is-10 is-offset-1 is-flex is-flex-grow-2 is-flex-direction-column-reverse">
-    <div v-for="message in messages" class="columns mb-2">
+    <div v-for="message in messages" :id="message.id" class="columns my-3">
       <un-message :message="message" :id_channel="id_channel"></un-message>
     </div>
   </div>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import unMessage from "@/components/unMessage";
+import unMessage from "@/components/unMessageConversation";
 
 export default {
   name: "UneConversation",
@@ -72,8 +72,24 @@ export default {
       this.messages.forEach(message => {
         message['auteur'] = this.recupAuteur(message.member_id)
       })
+      let param = this.$route.params.idMessage
+      setTimeout(function () {
+        if (param){
+          let message = document.getElementById(param);
+          message.style.backgroundColor = "rgba(22, 125, 240, 0.1)"
+          message.scrollIntoView()
+        }
+      },100)
     })
 
+    this.$bus.$on('deleteMessage', (id) => {
+      for(let i = 0; i < this.messages.length; i++){
+        if (this.messages[i].id === id) {
+          this.messages.splice(i, 1);
+          i--;
+        }
+      }
+    })
   },
   methods:{
     envoyerMessage(){

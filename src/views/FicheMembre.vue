@@ -14,46 +14,53 @@
     </div>
   </div>
 
-  <div class="box column is-8 is-offset-2 mt-3 has-text-centered">
-      <p class="title mt-4" >{{ this.nbLastMessages }} derniers messages</p>
+  <div class="box column is-8 is-offset-2 mt-3 mb-5 has-text-centered">
+    <div v-if="this.nbLastMessages > 0">
+      <p class="title mt-4">{{ this.nbLastMessages }} derniers messages</p>
       <template v-for="message in lastMessages.slice(0, this.nbLastMessages)">
-        {{ message.message }}<br />
+        <un-message :message="message"></un-message>
       </template>
+    </div>
+    <div v-else>
+      <p class="title mt-4">Aucun message</p>
+    </div>
   </div>
 </div>
 </template>
 
 <script>
+import unMessage from "@/components/unMessageFicheMembre";
 import md5 from 'crypto-js/md5'
 export default {
   name: "FicheMembre",
+  components: {
+    unMessage
+  },
   data() {
     return {
       membre: "",
       nbLastMessages: 0,
-      lastMessages: []
+      lastMessages: [],
+      array: [4, 8, 3]
     }
   },
   mounted() {
     this.membre = this.$store.getters.getMembre(this.$route.params.id)
-    this.getLastMessages(this.nbLastMessages)
+    this.getLastMessages()
   },
   methods:{
-    getLastMessages(nb){
+    getLastMessages(){
       this.$api.get('channels').then(response => {
         response.data.forEach(conv => {
           this.$api.get(`channels/${conv.id}/posts`).then(response => {
             response.data.forEach(message => {
-              if (message.member_id === this.membre.id && this.nbLastMessages < 10){
+              if (message.member_id === this.membre.id){
                 this.lastMessages.push(message)
                 this.nbLastMessages++
-              } else {
-                return
               }
             })
           })
         })
-        console.log(this.lastMessages)
       })
     }
   },

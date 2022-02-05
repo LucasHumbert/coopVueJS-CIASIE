@@ -27,7 +27,7 @@
           </div>
 
           <div v-else>
-            <p class="button is-light mr-3">Bonjour {{ $store.state.member.fullname }}</p>
+            <router-link :to="{name: 'FicheMembre', params: { id: $store.state.member.id }}" class="button is-light mr-3">Bonjour {{ $store.state.member.fullname }}</router-link>
             <button @click="deconnexion" class="button is-primary">Deconnexion</button>
           </div>
         </b-navbar-item>

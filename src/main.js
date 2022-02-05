@@ -6,6 +6,8 @@ import axios from 'axios';
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 
+Vue.prototype.$bus = new Vue()
+
 Vue.use(Buefy)
 
 Vue.prototype.$api = axios.create({

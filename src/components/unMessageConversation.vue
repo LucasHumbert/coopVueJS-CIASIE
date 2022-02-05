@@ -1,6 +1,6 @@
 <template>
   <!-- Message envoyé par un utilisateur différent de celui connecté -->
-  <div v-if="message.member_id !== $store.state.member.id" class="box mt-5 column is-5">
+  <div v-if="message.member_id !== $store.state.member.id" class="box column is-5">
     <router-link :to="{name:'FicheMembre', params:{id: message.auteur.id }}" v-if="message.auteur" class="is-underlined">{{ message.auteur.fullname }}</router-link>
     <p v-else class="is-underlined">Utilisateur supprimé</p>
     <p class="my-3 px-2 messageText">{{ message.message }}</p>
@@ -9,8 +9,7 @@
   </div>
 
   <!-- Message envoyé par l'utilisateur connecté -->
-  <transition v-else-if="display" name="fade">
-    <div class="box mt-5 column is-5 is-offset-7 has-background-info has-text-right has-text-white">
+    <div v-else-if="display" class="box column is-5 is-offset-7 has-background-info has-text-right has-text-white">
       <div class="is-flex is-justify-content-space-between">
         <p v-if="!editing" class="messageText has-text-left my-3 px-2">{{ message.message }}</p>
         <form v-else @submit.prevent="modifMessage(message.id ,message.message)" class="is-flex is-justify-content-center mb-2">
@@ -30,7 +29,6 @@
       <p v-if="message.created_at === message.modified_at" class="is-size-7 has-text-right">Écrit le {{ message.created_at }}</p>
       <p v-else class="is-size-7 has-text-right">Modifié le {{ message.modified_at }}</p>
     </div>
-  </transition>
 </template>
 
 <script>
@@ -47,7 +45,7 @@ export default {
     deleteMessage(id){
       this.$api.delete(`channels/${this.id_channel}/posts/${id}`).then(response => {
         this.$buefy.toast.open(response.data.message)
-        this.display = false
+        this.$bus.$emit('deleteMessage', id)
       })
     },
     modifMessage(id, messageModif) {

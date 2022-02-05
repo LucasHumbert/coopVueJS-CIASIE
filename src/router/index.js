@@ -15,6 +15,11 @@ const routes = [
     component: () => import('../views/UneConversation')
   },
   {
+    path: '/conversation/:id/:idMessage',
+    name: 'UneConversationEnContexte',
+    component: () => import('../views/UneConversation')
+  },
+  {
     path: '/creation-compte',
     name: 'CreationCompte',
     component: () => import('../views/CreationCompte')
