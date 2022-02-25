@@ -2,7 +2,7 @@
   <div id="app">
     <b-navbar class="box p-2">
       <template #brand>
-        <b-navbar-item tag="router-link" :to="{ path: '/' }" class="title is-2 m-0">
+        <b-navbar-item class="title is-2 m-0">
           Coop
         </b-navbar-item>
       </template>
